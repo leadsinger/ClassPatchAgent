@@ -1,4 +1,4 @@
-package de.otto.agent.compiler;
+package de.patch.agent.compiler;
 
 import javax.tools.JavaCompiler;
 import javax.tools.JavaCompiler.CompilationTask;

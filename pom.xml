@@ -21,7 +21,7 @@
                     <finalName>launcher</finalName>
                     <archive>
                         <manifest>
-                            <mainClass>de.otto.launcher.Main</mainClass>
+                            <mainClass>de.patch.launcher.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -36,7 +36,7 @@
                             <finalName>agent</finalName>
                             <archive>
                                 <manifestEntries>
-                                    <Premain-Class>de.otto.agent.Agent</Premain-Class>
+                                    <Premain-Class>de.patch.agent.Agent</Premain-Class>
                                 </manifestEntries>
                             </archive>
                         </configuration>
@@ -49,14 +49,14 @@
                 <version>1.2.1</version>
                 <configuration>
                     <executable>java</executable>
-                    <mainClass>de.otto.launcher.Main</mainClass>
+                    <mainClass>de.patch.launcher.Main</mainClass>
                     <arguments>
                         <argument>-Xdebug</argument>
                         <argument>-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=1044</argument>
                         <argument>-javaagent:target/agent.jar</argument>
                         <argument>-cp</argument>
                         <argument>target/launcher.jar;libs/*</argument>
-                        <argument>de.otto.launcher.Main</argument>
+                        <argument>de.patch.launcher.Main</argument>
                         <!-- put the classname for the launcher here -->
                         <argument></argument>
                     </arguments>

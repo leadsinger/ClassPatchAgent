@@ -1,4 +1,4 @@
-package de.otto.agent;
+package de.patch.agent;
 
 import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.IllegalClassFormatException;

@@ -1,4 +1,4 @@
-package de.otto.launcher;
+package de.patch.launcher;
 
 import java.lang.reflect.InvocationTargetException;
 

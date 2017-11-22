@@ -1,6 +1,6 @@
-package de.otto.agent;
+package de.patch.agent;
 
-import de.otto.agent.compiler.JavaStringCompiler;
+import de.patch.agent.compiler.JavaStringCompiler;
 
 import java.io.File;
 import java.io.IOException;

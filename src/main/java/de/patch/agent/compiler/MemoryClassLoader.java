@@ -1,4 +1,4 @@
-package de.otto.agent.compiler;
+package de.patch.agent.compiler;
 
 import java.net.URL;
 import java.net.URLClassLoader;
