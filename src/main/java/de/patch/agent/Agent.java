@@ -6,7 +6,9 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.instrument.Instrumentation;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Agent {
@@ -24,14 +26,20 @@ public class Agent {
         }
         System.out.println("Looking for patched java sources in " + folder.getAbsolutePath());
         File[] listOfFiles = folder.listFiles();
+        Map<String, String> sourceMap = new HashMap<>();
         for (File srcFile : listOfFiles) {
-            String srcFileContent = new String(Files.readAllBytes(srcFile.toPath()));
-            try {
-                Map<String, byte[]> compiledCode = compiler.compile(srcFile.getName(), srcFileContent);
-                results.putAll(compiledCode);
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (!srcFile.getName().contains(".java")) {
+                continue;
             }
+            String srcFileContent = new String(Files.readAllBytes(srcFile.toPath()));
+            System.out.println("Adding patched class " + srcFile.getName());
+            sourceMap.put(srcFile.getName(), srcFileContent);
+        }
+        try {
+            Map<String, byte[]> compiledCode = compiler.compileFiles(sourceMap);
+            results.putAll(compiledCode);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         instrumentation.addTransformer(new ClassPatchTransformer(results));
     }

@@ -6,8 +6,7 @@ import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Map;
+import java.util.*;
 
 public class JavaStringCompiler {
 
@@ -19,22 +18,15 @@ public class JavaStringCompiler {
         this.stdManager = compiler.getStandardFileManager(null, null, null);
     }
 
-    /**
-     * Compile a Java source file in memory.
-     *
-     * @param fileName
-     *            Java file name, e.g. "AppStarter.java"
-     * @param source
-     *            The source code as String.
-     * @return The compiled results as Map that contains class name as key,
-     *         class binary as value.
-     * @throws IOException
-     *             If compile error.
-     */
-    public Map<String, byte[]> compile(String fileName, String source) throws IOException {
+    public Map<String, byte[]> compileFiles(Map<String, String> sourceMap) throws IOException {
         try (MemoryJavaFileManager manager = new MemoryJavaFileManager(stdManager)) {
-            JavaFileObject javaFileObject = manager.makeStringSource(fileName, source);
-            CompilationTask task = compiler.getTask(null, manager, null, null, null, Arrays.asList(javaFileObject));
+            List<JavaFileObject> files = new ArrayList<>();
+            Set<String> fileNames = sourceMap.keySet();
+            for (String fileName : fileNames) {
+                JavaFileObject javaFileObject = manager.makeStringSource(fileName, sourceMap.get(fileName));
+                files.add(javaFileObject);
+            }
+            CompilationTask task = compiler.getTask(null, manager, null, null, null, files);
             Boolean result = task.call();
             if (result == null || !result.booleanValue()) {
                 throw new RuntimeException("Compilation failed.");
